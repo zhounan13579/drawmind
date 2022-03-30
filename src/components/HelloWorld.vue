@@ -27,51 +27,58 @@
         >&nbsp添加节点
       </el-tooltip>
       <el-tooltip content="删除节点" placement="bottom">
-<el-button
-            icon="el-icon-delete-solid"
-            @click="onRemoveNode"
-          ></el-button
-          >
+        <el-button
+          icon="el-icon-delete-solid"
+          @click="onRemoveNode"
+        ></el-button>
       </el-tooltip>
-      <el-tooltip content="移动到最上方" placement="bottom"> <el-button @click="onMoveUp" icon="el-icon-caret-top"></el-button
-          ></el-tooltip>
-      <el-tooltip content="移动到最下方" placement="bottom"><el-button @click="onMoveDown" icon="el-icon-caret-bottom"></el-button
-          ></el-tooltip>
-      <!-- <el-tooltip content="添加图片节点" placement="bottom"><el-button @click="addImageNode" icon="el-icon-picture"></el-button
-          ></el-tooltip> -->
-      <el-tooltip content="显示数据" placement="bottom"> <el-button
-            class="sub"
-            @click="get_nodearray_data"
-            icon="el-icon-view"
-          ></el-button
-          ></el-tooltip>
-      <el-tooltip content="保存文件" placement="bottom"><el-button class="sub" @click="save_file" icon="el-icon-download">
-          </el-button
-          ></el-tooltip>
-<el-tooltip content="" placement="bottom"><input id="file_input" class="file_input" type="file" /></el-tooltip>
-<el-tooltip content="" placement="bottom"><el-button class="sub" @click="open_file" type="success" size="mini">
-            打开文件
-          </el-button></el-tooltip>
-<el-tooltip content="全部展开" placement="bottom"><el-button
-            icon="el-icon-circle-plus-outline"
-            class="sub"
-            @click="expand_all"
-          ></el-button
-          ></el-tooltip>
-<el-tooltip content="全部收缩" placement="bottom"> <el-button
-            icon="el-icon-remove-outline"
-            class="sub"
-            @click="collapse_all"
-          ></el-button
-          ></el-tooltip>
-<el-tooltip content="" placement="bottom"></el-tooltip>
-
+      <el-tooltip content="移动到最上方" placement="bottom">
+        <el-button @click="onMoveUp" icon="el-icon-caret-top"></el-button
+      ></el-tooltip>
+      <el-tooltip content="移动到最下方" placement="bottom"
+        ><el-button @click="onMoveDown" icon="el-icon-caret-bottom"></el-button
+      ></el-tooltip>
+      <el-tooltip content="显示数据" placement="bottom">
+        <el-button
+          class="sub"
+          @click="get_nodearray_data"
+          icon="el-icon-view"
+        ></el-button
+      ></el-tooltip>
+      <el-tooltip content="保存文件" placement="bottom"
+        ><el-button class="sub" @click="save_file" icon="el-icon-download">
+        </el-button
+      ></el-tooltip>
+      <el-tooltip content="" placement="bottom"
+        ><input id="file_input" class="file_input" type="file"
+      /></el-tooltip>
+      <el-tooltip content="" placement="bottom"
+        ><el-button class="sub" @click="open_file" type="success" size="mini">
+          打开文件
+        </el-button></el-tooltip
+      >
+      <el-tooltip content="全部展开" placement="bottom"
+        ><el-button
+          icon="el-icon-circle-plus-outline"
+          class="sub"
+          @click="expand_all"
+        ></el-button
+      ></el-tooltip>
+      <el-tooltip content="全部收缩" placement="bottom">
+        <el-button
+          icon="el-icon-remove-outline"
+          class="sub"
+          @click="collapse_all"
+        ></el-button
+      ></el-tooltip>
+      <el-tooltip content="" placement="bottom"></el-tooltip>
 
       <el-tooltip effect="dark" content="选择颜色主题" placement="top">
         <el-select v-model="value" @change="set_theme">
           <el-option
             v-for="item in themearray"
-            :key="item.label"
+            :key="item.value"
+            :label="item.label"
             :value="item.value"
           >
           </el-option>
@@ -106,16 +113,11 @@ export default {
   data() {
     return {
       jm: null,
-      value: "",
       typevalue: "",
       themearray: [
         {
-          value: "",
-          label: "default（默认）",
-        },
-        {
           value: "primary",
-          label: "primary（主要）",
+          label: "primary",
         },
         {
           value: "warning",
@@ -123,7 +125,7 @@ export default {
         },
         {
           value: "danger",
-          label: "danger（危险）",
+          label: "danger",
         },
         {
           value: "info",
@@ -170,6 +172,7 @@ export default {
           label: "asbestos",
         },
       ],
+      value: "primary",
       indexspan: true,
       theme_value: "",
       mind: {
@@ -395,9 +398,9 @@ export default {
         },
         false
       );
-      var selected_node = this.jm.get_selected_node(); 
+      var selected_node = this.jm.get_selected_node();
       if (!selected_node) {
-      alert("请先选择一个节点");
+        alert("请先选择一个节点");
         return;
       }
 
@@ -517,7 +520,6 @@ export default {
       }
       this.shortCutVal += value.key;
       this.keyCode += value.keyCode;
-      // console.log("keyCode", this.keyCode);
       this.options = {
         shortcut: {
           mapping: {
